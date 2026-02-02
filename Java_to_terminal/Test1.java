@@ -14,7 +14,7 @@ public class Test1 {
       System.out.println(" ");
 
       // Runnar comandot som clerar arpcachen (tror jag)
-      Process clear_arp = Runtime.getRuntime().exec("netsh interface ip delete arpcache ");
+      Process clear_arp = Runtime.getRuntime().exec("netsh interface ip delete arpcache");
       // Skapar ett Buffered Reader objekt som öppnar en inputstream och sparar terminal outputen i objektet? 
       BufferedReader stdout = new BufferedReader(new InputStreamReader(clear_arp.getInputStream()));
 
@@ -67,8 +67,6 @@ public class Test1 {
         System.out.println("Error: " + e);
 
       }
-
-
   }
 
 static String[] get_arp_table(){
