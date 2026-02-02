@@ -175,7 +175,7 @@ static void find_ip(String mac_adress, String[] arp_list){
   System.out.println(" ");
   
   clear_arp_table();
-  ping_network(10);
+  ping_network(20);
 
   find_ip("fe80::f972:ee5c:f609:2b50%15",get_arp_table());
 
