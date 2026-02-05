@@ -11,7 +11,7 @@ public class Test_1 {
 
     public static void main(String[] args) {
         System.out.println("Starting...");
-        String host = "Jonts-dator";
+        String host = "5CD3147HNP";
 
         try{
         
@@ -31,7 +31,7 @@ public class Test_1 {
 
                 System.out.println("Server: " + in.readLine());
 
-                if(message.equalsIgnoreCase("BYE")){
+                if(message.equalsIgnoreCase("EXIT")){
                     
                     scanner.close();
                     socket.close();

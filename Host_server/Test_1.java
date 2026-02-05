@@ -17,8 +17,8 @@ public class Test_1 {
             Socket socket = null;
             BufferedReader in = null;
             BufferedWriter out = null;
-            ServerSocket serverSocket = new ServerSocket(1234);
-            BufferedReader terminal_out = null;         
+            ServerSocket serverSocket = new ServerSocket(4000);
+            BufferedReader terminal_out = null;
 
 
             try{
@@ -57,7 +57,6 @@ public class Test_1 {
 
                                 out.write(temp);
                                 
-
                                 temp = terminal_out.readLine();
 
                                 if (temp == null) {
