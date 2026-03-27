@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Test_1 {
+public class Client {
 
     public static void main(String[] args) {
         System.out.println("Starting...");

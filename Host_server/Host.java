@@ -7,7 +7,7 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Test_1 {
+public class Host {
     
     public static void main(String[] args) {
 
