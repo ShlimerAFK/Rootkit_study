@@ -17,7 +17,7 @@ public class Test_1 {
             Socket socket = null;
             BufferedReader in = null;
             BufferedWriter out = null;
-            ServerSocket serverSocket = new ServerSocket(1234);
+            ServerSocket serverSocket = new ServerSocket(60123);
             BufferedReader terminal_out = null;         
 
 
