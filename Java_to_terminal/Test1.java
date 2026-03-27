@@ -34,7 +34,7 @@ public class Test1 {
 
   static void ping_network(int ping_amount){
     // skapar en sträng, %d är en placeholder för en Int variabel vid användning av formaterade strängar
-    String command_1 = "ping  192.168.0.%d -n 1";   
+    String command_1 = "ping  192.168.1.%d -n 1";   
 
     try{
       // loopar igenom olika ip nummer som startar på xxx.xxx.xxx.1, loopar mängden gånger = funktionens argument ping:amount
@@ -175,7 +175,7 @@ static void find_ip(String mac_adress, String[] arp_list){
   System.out.println(" ");
   
   clear_arp_table();
-  ping_network(20);
+  ping_network(10);
 
   find_ip("fe80::f972:ee5c:f609:2b50%15",get_arp_table());
 

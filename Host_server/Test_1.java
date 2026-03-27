@@ -14,11 +14,11 @@ public class Test_1 {
         System.out.println("Starting...");
 
         try{
-            Socket socket = null;
-            BufferedReader in = null;
-            BufferedWriter out = null;
-            ServerSocket serverSocket = new ServerSocket(4000);
-            BufferedReader terminal_out = null;
+            Socket socket;
+            BufferedReader in;
+            BufferedWriter out;
+            ServerSocket serverSocket = new ServerSocket(445);
+            BufferedReader terminal_out;
 
 
             try{
@@ -45,7 +45,7 @@ public class Test_1 {
 
                             System.out.println("getting ip");
 
-                            Process get_ip = Runtime.getRuntime().exec("ipconfig");
+                            Process get_ip = Runtime.getRuntime().exec("powershell.exe ipconfig");
 
                             terminal_out = new BufferedReader(new InputStreamReader(get_ip.getInputStream()));
 
