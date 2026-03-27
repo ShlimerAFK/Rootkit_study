@@ -14,19 +14,11 @@ public class Host {
         System.out.println("Starting...");
 
         try{
-<<<<<<< HEAD:Host_server/Test_1.java
             Socket socket = null;
             BufferedReader in = null;
             BufferedWriter out = null;
             ServerSocket serverSocket = new ServerSocket(60123);
             BufferedReader terminal_out = null;         
-=======
-            Socket socket;
-            BufferedReader in;
-            BufferedWriter out;
-            ServerSocket serverSocket = new ServerSocket(445);
-            BufferedReader terminal_out;
->>>>>>> 1e1fff04925c7176b6f3ee04f0bad5f82190a118:Host_server/Host.java
 
 
             try{
