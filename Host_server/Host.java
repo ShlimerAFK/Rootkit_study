@@ -11,32 +11,35 @@ public class Host {
     
     public static void main(String[] args) {
 
-        System.out.println("Starting...");
 
         try{
-            Socket socket;
-            BufferedReader in;
-            BufferedWriter out;
-            ServerSocket serverSocket = new ServerSocket(445);
-            BufferedReader terminal_out;
+            Socket socket = null;
+            BufferedReader in = null;
+            BufferedWriter out = null;
+            ServerSocket serverSocket = new ServerSocket(60123);
+            BufferedReader terminal_out = null;
+            String message_from_client;
 
+            System.out.println("Searching for connection...");
 
             try{
                 while (true) {
+
                     
                     socket = serverSocket.accept();
+                    
                     
                     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-                    if(socket != null){
-                        out.write("Connected");
-                        out.newLine();
-                        out.flush();
-                    }
+                    // if(socket.isConnected()){
+                    //     out.write("Connected");
+                    //     out.newLine();
+                    //     out.flush();
+                    // }
 
                     while (socket.isConnected()){
-                        String message_from_client = in.readLine();
+                        message_from_client = in.readLine();
 
                         System.out.println("Client: " + message_from_client);
                         
@@ -56,22 +59,29 @@ public class Host {
                                 System.out.println(temp);
 
                                 out.write(temp);
+                                out.newLine();
                                 
                                 temp = terminal_out.readLine();
 
                                 if (temp == null) {
+                                    out.write("Done");
                                     out.newLine();
                                     out.flush();
                                 }
                             }   
-                        } 
-                        
-                        // else{
-                        //     out.write("msg receved");
-                        //     out.newLine();
-                        //     out.flush();
 
-                        // }
+                        } else if (message_from_client.equalsIgnoreCase("CONNECTED")){
+
+                            out.write("You are connected to the server");
+                            out.newLine();
+                            out.flush();
+
+                        } else{
+                            out.write("msg receved");
+                            out.newLine();
+                            out.flush();
+
+                        }
 
                         if(message_from_client.equalsIgnoreCase("EXIT")){
                             
@@ -88,11 +98,21 @@ public class Host {
             
 
             }catch(Exception error){
-                System.out.println("Error 1: " + error);
+                System.out.println("\nError 1: " + error + "\n");
+                socket.close();
+                in.close();
+                out.close();
+                serverSocket.close();
+
+                System.out.println("Client disconnected, restarting search");
+
+                main(args);
+
             }
 
         }catch(Exception error){
             System.out.println("Error 2:" + error);
+            
 
         }
     }

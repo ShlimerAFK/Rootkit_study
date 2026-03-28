@@ -11,6 +11,7 @@ public class Client {
 
     public static void main(String[] args) {
         System.out.println("Starting...");
+        System.out.println("Searching for server");
         String host = "5CD3147HNP";
 
         try{
@@ -22,21 +23,60 @@ public class Client {
 
             Scanner scanner = new Scanner(System.in);
 
+            String message;
+            String temp;
+            
+            if (socket.isBound()) {
+
+                out.write("connected");
+                out.newLine();
+                out.flush();
+
+                System.out.println(in.readLine());
+                
+            }
+            
+
             while(true){
 
-                String message = scanner.nextLine();
+                message = scanner.nextLine();
+
                 out.write(message);
                 out.newLine();
                 out.flush();
 
-                System.out.println("Server: " + in.readLine());
+                if(message.equalsIgnoreCase("IP")){
 
-                if(message.equalsIgnoreCase("EXIT")){
+                    System.out.println("Server:");
+
+                    temp = in.readLine();
+
+                    while(temp != null){
+
+                        temp = in.readLine();
+                        System.out.println(temp);
+
+                        if(temp.equalsIgnoreCase("DONE")){
+                            break;
+                        }
+
+                    }
+
+                    System.out.println("________________________________________");
+
+                }else if(message.equalsIgnoreCase("EXIT")){
                     
                     scanner.close();
                     socket.close();
                     break;
-                }   
+
+                }else{
+
+                    System.out.println("Server: " + in.readLine());
+
+                } 
+
+
         }
 
         } catch(Exception error){
