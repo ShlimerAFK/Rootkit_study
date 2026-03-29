@@ -12,7 +12,7 @@ public class Client {
     public static void main(String[] args) {
         System.out.println("Starting...");
         System.out.println("Searching for server");
-        String host = "5CD3147HNP";
+        String host = "192.168.0.35";
 
         try{
         
@@ -23,8 +23,9 @@ public class Client {
 
             Scanner scanner = new Scanner(System.in);
 
-            String message;
+            String message = "";
             String temp;
+
             
             if (socket.isBound()) {
 
@@ -45,26 +46,9 @@ public class Client {
                 out.newLine();
                 out.flush();
 
-                if(message.equalsIgnoreCase("IP")){
+                //message.equalsIgnoreCase("IP") && last_command.equalsIgnoreCase("COMMAND") || message.equalsIgnoreCase("KILL") && last_command.equalsIgnoreCase("COMMAND")
 
-                    System.out.println("Server:");
-
-                    temp = in.readLine();
-
-                    while(temp != null){
-
-                        temp = in.readLine();
-                        System.out.println(temp);
-
-                        if(temp.equalsIgnoreCase("DONE")){
-                            break;
-                        }
-
-                    }
-
-                    System.out.println("________________________________________");
-
-                }else if(message.equalsIgnoreCase("EXIT")){
+                if(message.equalsIgnoreCase("EXIT")){
                     
                     scanner.close();
                     socket.close();
@@ -72,10 +56,21 @@ public class Client {
 
                 }else{
 
-                    System.out.println("Server: " + in.readLine());
+                    temp = in.readLine();
 
-                } 
+                    while(temp != null){
 
+                        if(!temp.equalsIgnoreCase("DONE")){
+                            System.out.println(temp);
+                        }
+
+                        if(temp.equalsIgnoreCase("DONE")){
+                            break;
+                        }
+
+                        temp = in.readLine(); 
+                    }
+                }
 
         }
 

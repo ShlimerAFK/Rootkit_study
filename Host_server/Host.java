@@ -12,6 +12,7 @@ public class Host {
     public static void main(String[] args) {
 
 
+
         try{
             Socket socket = null;
             BufferedReader in = null;
@@ -23,80 +24,159 @@ public class Host {
             System.out.println("Searching for connection...");
 
             try{
+
                 while (true) {
 
-                    
                     socket = serverSocket.accept();
-                    
                     
                     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
-                    // if(socket.isConnected()){
-                    //     out.write("Connected");
-                    //     out.newLine();
-                    //     out.flush();
-                    // }
-
                     while (socket.isConnected()){
+
                         message_from_client = in.readLine();
 
                         System.out.println("Client: " + message_from_client);
                         
+                        if(message_from_client.equalsIgnoreCase("COMMAND")){
 
-                        if (message_from_client.equalsIgnoreCase("IP")){
+                            out.write("Command pannel: \n Existing commands:Ip, Kill ");
 
-                            System.out.println("getting ip");
+                            out.newLine();
+                            out.write("Done");
 
-                            Process get_ip = Runtime.getRuntime().exec("powershell.exe ipconfig");
+                            out.newLine();
+                            out.flush();
 
-                            terminal_out = new BufferedReader(new InputStreamReader(get_ip.getInputStream()));
+                            message_from_client = in.readLine();
 
-                            String temp = terminal_out.readLine();
 
-                            while (temp != null) {
+                            if (message_from_client.equalsIgnoreCase("IP")){
 
-                                System.out.println(temp);
+                                System.out.println("getting ip");
 
-                                out.write(temp);
-                                out.newLine();
+                                Process get_ip = Runtime.getRuntime().exec("powershell.exe ipconfig");
+
+                                terminal_out = new BufferedReader(new InputStreamReader(get_ip.getInputStream()));
+
+                                String temp = terminal_out.readLine();
+
+                                while (temp != null) {
+
+                                    System.out.println(temp);
+
+                                    out.write(temp);
+                                    out.newLine();
+                                    
+                                    temp = terminal_out.readLine();
+
+                                    if (temp == null) {
+                                        out.write("Done");
+                                        out.newLine();
+                                        out.flush();
+                                    }
+                                }
+
+                            }else if(message_from_client.equalsIgnoreCase("KILL")){
+
+                                System.out.println("getting processes");
+
+                                Process get_processes = Runtime.getRuntime().exec("powershell.exe Get-Process | Sort-Object WorkingSet -Descending | Select -First 40");
+
+                                terminal_out = new BufferedReader(new InputStreamReader(get_processes.getInputStream()));
+
+                                String temp = terminal_out.readLine();
+
+                                while (temp != null) {
+
+                                    System.out.println(temp);
+
+                                    out.write(temp);
+                                    out.newLine();
+                                    
+                                    temp = terminal_out.readLine();
+
+                                    if (temp == null) {
+
+                                        out.write("Process id: ");
+                                        out.newLine();
+
+                                        out.write("Done");
+                                        out.newLine();
+                                        out.flush();
+                                    }
+                                }
+
+                                
+                                message_from_client = in.readLine();
+
+                                Process kill_Process = Runtime.getRuntime().exec("Powershell.exe taskkill /pid " + message_from_client);
+
+                                terminal_out = new BufferedReader(new InputStreamReader(kill_Process.getInputStream()));
                                 
                                 temp = terminal_out.readLine();
 
-                                if (temp == null) {
-                                    out.write("Done");
+                                while (temp != null) {
+
+                                    System.out.println(temp);
+
+                                    out.write(temp);
                                     out.newLine();
-                                    out.flush();
+                                    
+                                    temp = terminal_out.readLine();
+
+                                    if (temp == null) {
+                                        out.write("Done");
+                                        out.newLine();
+                                        out.flush();
+                                    }
                                 }
-                            }   
+
+
+                            }else{
+                                out.write("Not a valid command, start over");
+
+                                out.newLine();
+                                out.write("Done");
+
+                                out.newLine();
+                                out.flush();
+                            }
+                            
+                            
 
                         } else if (message_from_client.equalsIgnoreCase("CONNECTED")){
 
                             out.write("You are connected to the server");
+
                             out.newLine();
                             out.flush();
 
-                        } else{
-                            out.write("msg receved");
-                            out.newLine();
-                            out.flush();
-
-                        }
-
-                        if(message_from_client.equalsIgnoreCase("EXIT")){
+                        } else if(message_from_client.equalsIgnoreCase("EXIT")){
                             
                             socket.close();
                             in.close();
                             out.close();
 
                             break;
+
+                        }else{
+                            out.write("msg receved");
+
+                            out.newLine();
+                            out.write("Done");
+
+                            out.newLine();
+                            out.flush();
+
                         }
+
+                        
                     }
             
             }
 
             
-
             }catch(Exception error){
                 System.out.println("\nError 1: " + error + "\n");
                 socket.close();
