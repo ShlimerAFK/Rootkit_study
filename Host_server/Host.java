@@ -40,7 +40,7 @@ public class Host {
                         
                         if(message_from_client.equalsIgnoreCase("COMMAND")){
 
-                            out.write("Command pannel: \n Existing commands:Ip, Kill ");
+                            out.write(" Command pannel: \n Existing commands:Ip, Kill, Advanced ");
 
                             out.newLine();
                             out.write("Done");
@@ -53,7 +53,7 @@ public class Host {
 
                             if (message_from_client.equalsIgnoreCase("IP")){
 
-                                System.out.println("getting ip");
+                                System.out.println(" getting ip");
 
                                 Process get_ip = Runtime.getRuntime().exec("powershell.exe ipconfig");
 
@@ -79,7 +79,7 @@ public class Host {
 
                             }else if(message_from_client.equalsIgnoreCase("KILL")){
 
-                                System.out.println("getting processes");
+                                System.out.println(" getting processes");
 
                                 Process get_processes = Runtime.getRuntime().exec("powershell.exe Get-Process | Sort-Object WorkingSet -Descending | Select -First 40");
 
@@ -98,7 +98,7 @@ public class Host {
 
                                     if (temp == null) {
 
-                                        out.write("Process id: ");
+                                        out.write(" Process id: ");
                                         out.newLine();
 
                                         out.write("Done");
@@ -133,8 +133,69 @@ public class Host {
                                 }
 
 
+                            }else if(message_from_client.equalsIgnoreCase("ADVANCED")){
+
+                                out.write(" You are in advanced mode, type leave to exit advanced mode");
+                                out.newLine();
+                                out.write(" Wright commands below: ");
+                                out.newLine();
+                                out.write("done");
+                                out.newLine();
+                                out.flush();
+                                
+
+                                while (!message_from_client.equalsIgnoreCase("LEAVE")) {
+
+
+                                    message_from_client = in.readLine();
+
+
+                                    if (message_from_client.equalsIgnoreCase("LEAVE")) {
+                                        out.write(" Exiting advanced mode");
+                                        out.newLine();
+                                        out.write("done");
+                                        out.newLine();
+                                        out.flush();
+                                        break;
+                                    }
+
+                                    Process custom_command = Runtime.getRuntime().exec("powershell.exe " + message_from_client);
+
+                                    terminal_out = new BufferedReader(new InputStreamReader(custom_command.getInputStream()));
+
+                                    String temp = terminal_out.readLine();
+
+                                    if (temp != null) {
+
+                                        while (temp != null){
+
+                                            System.out.println(temp);
+
+                                            out.write(temp);
+                                            out.newLine();
+                                            
+                                            temp = terminal_out.readLine();
+
+                                            if (temp == null) {
+
+                                                out.write("Done");
+                                                out.newLine();
+                                                out.flush();
+                                            }
+                                        }   
+                                    }else if(temp == null){
+                                        out.write("Return was null or invalid command ");
+                                        out.newLine();
+                                        out.write("done");
+                                        out.newLine();
+                                        out.flush();
+
+                                    }
+                                    
+                                }
+
                             }else{
-                                out.write("Not a valid command, start over");
+                                out.write(" Not a valid command, start over");
 
                                 out.newLine();
                                 out.write("Done");
@@ -147,7 +208,7 @@ public class Host {
 
                         } else if (message_from_client.equalsIgnoreCase("CONNECTED")){
 
-                            out.write("You are connected to the server");
+                            out.write(" You are connected to the server");
 
                             out.newLine();
                             out.flush();
@@ -161,7 +222,7 @@ public class Host {
                             break;
 
                         }else{
-                            out.write("msg receved");
+                            out.write(" msg receved");
 
                             out.newLine();
                             out.write("Done");

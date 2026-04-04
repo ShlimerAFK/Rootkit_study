@@ -12,7 +12,7 @@ public class Client {
     public static void main(String[] args) {
         System.out.println("Starting...");
         System.out.println("Searching for server");
-        String host = "192.168.0.35";
+        String host = "localhost";
 
         try{
         
