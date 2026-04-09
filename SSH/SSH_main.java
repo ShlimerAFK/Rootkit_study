@@ -14,12 +14,13 @@ public class SSH_main {
         // final String command = "powershell.exe Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0 ; Start-Service sshd ; Set-Service -Name sshd -StartupType Automatic ; New-NetFirewallRule -Name sshd -DisplayName \"OpenSSH Server\" -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22 ; New-NetFirewallRule -Name sshd -DisplayName \"Java Host\" -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 60123 ; ‘ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM3Z7TiVBJRMV2JTQU3cLj5wssQ2d60IX+dlLUifghnj' | Out-File -Append -Encoding ascii $env:USERPROFILE\\.ssh\\authorized_keys ; ‘ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGJ03YWb/HRKYz5qlgywd5nZ+QB7ohQou4adkg16aynP' | Out-File -Append -Encoding ascii $env:USERPROFILE\\.ssh\\authorized_keys ; 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM3Z7TiVBJRMV2JTQU3cLj5wssQ2d60IX+dlLUifghnj' | Out-File -Append -Encoding ascii \"C:\\ProgramData\\ssh\\administrators_authorized_keys\" ; 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGJ03YWb/HRKYz5qlgywd5nZ+QB7ohQou4adkg16aynP' | Out-File -Append -Encoding ascii \"C:\\ProgramData\\ssh\\administrators_authorized_keys\" ";
 
         final String
-        command_1 = "Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0",
-        command_2 = "Start-Service sshd",
-        command_3 = "Set-Service -Name sshd -StartupType Automatic",
-        command_4 = "New-NetFirewallRule -Name sshd -DisplayName \"OpenSSH Server\" -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22",
-        command_5 = "New-NetFirewallRule -Name sshd -DisplayName \"Java Host\" -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 60123",
-        command_6 = "'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM3Z7TiVBJRMV2JTQU3cLj5wssQ2d60IX+dlLUifghnj' | Out-File -Append -Encoding ascii $env:USERPROFILE\\.ssh\\authorized_keys",
+        command_1 = "Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0", //install ssh
+        command_2 = "Start-Service sshd", //start ssh
+        command_3 = "Set-Service -Name sshd -StartupType Automatic", //autostart ssh
+        command_4 = "New-NetFirewallRule -Name sshd -DisplayName \"OpenSSH Server\" -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22", //open firewall ssh config
+        command_5 = "New-NetFirewallRule -Name sshd -DisplayName \"Java Host\" -Enabled True -Direction Inbound -Protocol TCP -Action Allow -LocalPort 60123",  //open firewall javaserver config
+        //add private ssh keys for access without password (2 keys, change if needed):
+        command_6 = "'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM3Z7TiVBJRMV2JTQU3cLj5wssQ2d60IX+dlLUifghnj' | Out-File -Append -Encoding ascii $env:USERPROFILE\\.ssh\\authorized_keys", 
         command_7 = "'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGJ03YWb/HRKYz5qlgywd5nZ+QB7ohQou4adkg16aynP' | Out-File -Append -Encoding ascii $env:USERPROFILE\\.ssh\\authorized_keys",
         command_8 = "'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM3Z7TiVBJRMV2JTQU3cLj5wssQ2d60IX+dlLUifghnj' | Out-File -Append -Encoding ascii \"C:\\ProgramData\\ssh\\administrators_authorized_keys\"",
         command_9 = "'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGJ03YWb/HRKYz5qlgywd5nZ+QB7ohQou4adkg16aynP' | Out-File -Append -Encoding ascii \"C:\\ProgramData\\ssh\\administrators_authorized_keys\"";
