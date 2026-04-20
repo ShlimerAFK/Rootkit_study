@@ -46,8 +46,6 @@ public class Client {
                 out.newLine();
                 out.flush();
 
-                //message.equalsIgnoreCase("IP") && last_command.equalsIgnoreCase("COMMAND") || message.equalsIgnoreCase("KILL") && last_command.equalsIgnoreCase("COMMAND")
-
                 if(message.equalsIgnoreCase("EXIT")){
                     
                     scanner.close();
