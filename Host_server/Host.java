@@ -116,22 +116,30 @@ public class Host {
                                 
                                 temp = terminal_out.readLine();
 
-                                while (temp != null) {
+                                if(temp != null){
 
-                                    System.out.println(temp);
+                                    while (temp != null) {
 
-                                    out.write(temp);
-                                    out.newLine();
-                                    
-                                    temp = terminal_out.readLine();
+                                        System.out.println(temp);
 
-                                    if (temp == null) {
-                                        out.write("Done");
+                                        out.write(temp);
                                         out.newLine();
-                                        out.flush();
-                                    }
-                                }
+                                        
+                                        temp = terminal_out.readLine();
 
+                                        if (temp == null) {
+                                            out.write("Done");
+                                            out.newLine();
+                                            out.flush();
+                                        }
+                                    }
+                                } else {
+                                    out.write("Invalid process id");
+                                    out.newLine();
+                                    out.write("DONE");
+                                    out.newLine();
+                                    out.flush();
+                                }
 
                             }else if(message_from_client.equalsIgnoreCase("ADVANCED")){
 
