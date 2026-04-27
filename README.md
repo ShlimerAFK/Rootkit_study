@@ -1,4 +1,4 @@
-This project is meant for educational means ONLY. Do not use on another person without their full consent.
+This project is meant for educational purposes ONLY. Do not use on another person without their full consent.
 
 **How to use**
 
