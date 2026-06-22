@@ -32,6 +32,8 @@ public class Host {
                     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                     out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
+                    Messenger messenger = new Messenger(out);
+
                     while (socket.isConnected()){
 
                         message_from_client = in.readLine();
@@ -40,13 +42,8 @@ public class Host {
                         
                         if(message_from_client.equalsIgnoreCase("COMMAND")){
 
-                            out.write(" Command pannel: \n Existing commands:Ip, Kill, Advanced ");
-
-                            out.newLine();
-                            out.write("Done");
-
-                            out.newLine();
-                            out.flush();
+                            messenger.send_line(" Command pannel: \n Existing commands:Ip, Kill, Advanced ");
+                            messenger.send_line("Done");
 
                             message_from_client = in.readLine();
 
@@ -65,15 +62,12 @@ public class Host {
 
                                     System.out.println(temp);
 
-                                    out.write(temp);
-                                    out.newLine();
+                                    messenger.send_line(temp);
                                     
                                     temp = terminal_out.readLine();
 
                                     if (temp == null) {
-                                        out.write("Done");
-                                        out.newLine();
-                                        out.flush();
+                                        messenger.send_line("Done");
                                     }
                                 }
 
@@ -91,19 +85,16 @@ public class Host {
 
                                     System.out.println(temp);
 
-                                    out.write(temp);
-                                    out.newLine();
+                                    messenger.send_line(temp);
                                     
                                     temp = terminal_out.readLine();
 
                                     if (temp == null) {
 
-                                        out.write(" Process id: ");
-                                        out.newLine();
+                                        messenger.send_line( "Precess id:");
 
-                                        out.write("Done");
-                                        out.newLine();
-                                        out.flush();
+                                        messenger.send_line("Done");
+
                                     }
                                 }
 
@@ -122,49 +113,39 @@ public class Host {
 
                                         System.out.println(temp);
 
-                                        out.write(temp);
-                                        out.newLine();
+                                        messenger.send_line(temp);
                                         
                                         temp = terminal_out.readLine();
 
                                         if (temp == null) {
-                                            out.write("Done");
-                                            out.newLine();
-                                            out.flush();
+
+                                            messenger.send_line("Done");
                                         }
                                     }
                                 } else {
-                                    out.write("Invalid process id");
-                                    out.newLine();
-                                    out.write("DONE");
-                                    out.newLine();
-                                    out.flush();
+
+                                    messenger.send_line("Invalid process id");
+                                    messenger.send_line("Done");
                                 }
 
                             }else if(message_from_client.equalsIgnoreCase("ADVANCED")){
 
-                                out.write(" You are in advanced mode, type leave to exit advanced mode");
-                                out.newLine();
-                                out.write(" Wright commands below: ");
-                                out.newLine();
-                                out.write("done");
-                                out.newLine();
-                                out.flush();
+                                messenger.send_line(" You are in advanced mode, type leave to exit advanced mode");
+                                messenger.send_line(" Wright commands below: ");
+                                messenger.send_line("Done");
                                 
 
                                 while (!message_from_client.equalsIgnoreCase("LEAVE")) {
 
-
                                     message_from_client = in.readLine();
 
-
                                     if (message_from_client.equalsIgnoreCase("LEAVE")) {
-                                        out.write(" Exiting advanced mode");
-                                        out.newLine();
-                                        out.write("done");
-                                        out.newLine();
-                                        out.flush();
+
+                                        messenger.send_line(" Exiting advanced mode");
+                                        messenger.send_line("Done");
+
                                         break;
+
                                     }
 
                                     Process custom_command = Runtime.getRuntime().exec("powershell.exe " + message_from_client);
@@ -179,47 +160,38 @@ public class Host {
 
                                             System.out.println(temp);
 
-                                            out.write(temp);
-                                            out.newLine();
+                                            messenger.send_line(temp);
                                             
                                             temp = terminal_out.readLine();
 
                                             if (temp == null) {
 
-                                                out.write("Done");
-                                                out.newLine();
-                                                out.flush();
+                                                messenger.send_line("Done");
+
                                             }
                                         }   
                                     }else if(temp == null){
-                                        out.write("Return was null or invalid command ");
-                                        out.newLine();
-                                        out.write("done");
-                                        out.newLine();
-                                        out.flush();
 
+                                        messenger.send_line("Return was null or invalid command ");
+                                        messenger.send_line("Done");
                                     }
                                     
                                 }
 
                             }else{
-                                out.write(" Not a valid command, start over");
+                                messenger.send_line("Not a valid command, start over");
+                                
+                                messenger.send_line("Done");
 
-                                out.newLine();
-                                out.write("Done");
-
-                                out.newLine();
-                                out.flush();
                             }
                             
                             
 
                         } else if (message_from_client.equalsIgnoreCase("CONNECTED")){
 
-                            out.write(" You are connected to the server");
+                            messenger.send_line("You are connected to the server");
+                            messenger.end_messege();
 
-                            out.newLine();
-                            out.flush();
 
                         } else if(message_from_client.equalsIgnoreCase("EXIT")){
                             
@@ -230,13 +202,9 @@ public class Host {
                             break;
 
                         }else{
-                            out.write(" msg receved");
+                            messenger.send_line(" msg receved");
 
-                            out.newLine();
-                            out.write("Done");
-
-                            out.newLine();
-                            out.flush();
+                            messenger.send_line("Done");
 
                         }
 

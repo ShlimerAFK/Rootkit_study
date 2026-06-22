@@ -28,7 +28,7 @@ public class Client {
 
             
             if (socket.isBound()) {
-
+                
                 out.write("connected");
                 out.newLine();
                 out.flush();
