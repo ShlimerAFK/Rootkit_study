@@ -91,7 +91,7 @@ public class Host {
 
                                     if (temp == null) {
 
-                                        messenger.send_line( "Precess id:");
+                                        messenger.send_line( "Process name");
 
                                         messenger.send_line("Done");
 
@@ -101,7 +101,7 @@ public class Host {
                                 
                                 message_from_client = in.readLine();
 
-                                Process kill_Process = Runtime.getRuntime().exec("Powershell.exe taskkill /pid " + message_from_client);
+                                Process kill_Process = Runtime.getRuntime().exec("Powershell.exe taskkill /f /t /im " + message_from_client + ".exe");
 
                                 terminal_out = new BufferedReader(new InputStreamReader(kill_Process.getInputStream()));
                                 
